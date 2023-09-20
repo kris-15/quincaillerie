@@ -5,6 +5,7 @@
         public string $email;
         public string $username;
         public string $password;
+        public int $id;
 
         /**
          * Permet de créer le constructeur de la classe
@@ -21,11 +22,13 @@
             $this->password = $password;
         }
 
+        /**
+         * Permet de connecter un administrateur à partir de son username et password
+         * Si les infos entrantes matchent les infos existantes elle renvoit true
+         * Sinon false
+         */
         public function login(){
-            $admin = $this->prepare_sql(
-                "SELECT * FROM admins WHERE username=?",
-                [$this->username], fetchOne:true, fetchMode:PDO::FETCH_OBJ
-            );
+            $admin = $this->find_admin_by_username();
             if(!$admin){
                 return false;
             }
@@ -34,7 +37,6 @@
                 $this->email = $admin->email;
                 return true;
             }
-            
             return false;
         }
 
@@ -58,6 +60,16 @@
             }
             return $this->prepare_sql("INSERT INTO admins VALUE (null,?,?,?,?)", 
                 [$this->name, $this->username, $this->email, password_hash($this->password, PASSWORD_DEFAULT)]
+            );
+        }
+
+        /**
+         * Permet de récupérer tous les informations d'un admin à partir de son username
+         */
+        private function find_admin_by_username(){
+            return $this->prepare_sql(
+                "SELECT * FROM admins WHERE username=?",
+                [$this->username], fetchOne:true, fetchMode:PDO::FETCH_OBJ
             );
         }
     }
