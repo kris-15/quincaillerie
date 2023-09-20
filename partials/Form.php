@@ -16,12 +16,12 @@
          * @param bool $required Pour obliger un champ, par défaut à true
          * @return string $inputField
          */
-        public function input_field($type, $name, $label, $min=0, $max=1000000, $required=true): string{
+        public function input_field($type, $name, $label, $min=0, $max=1000000, $required=true, $valueDefined=""): string{
             $requiredText = "required";
             if(!$required){
                 $requiredText = "";
             }
-            $value = $_POST[''.$name]??'';
+            $value = $_POST[''.$name]??$valueDefined;
             $minValeur = ($type=='number')?$min:'';
             $maxValeur = ($type=='number' || $type=='date')?$max:'';
             return <<<HTML
