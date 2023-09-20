@@ -21,6 +21,23 @@
             $this->password = $password;
         }
 
+        public function login(){
+            $admin = $this->prepare_sql(
+                "SELECT * FROM admins WHERE username=?",
+                [$this->username], fetchOne:true, fetchMode:PDO::FETCH_OBJ
+            );
+            if(!$admin){
+                return false;
+            }
+            if(password_verify($this->password, $admin->password)){
+                $this->name = $admin->nom;
+                $this->email = $admin->email;
+                return true;
+            }
+            
+            return false;
+        }
+
         /**
          * Cette méthode permet de vérifier si un username a été déjà pris
          * @return int Le nombre de fois
