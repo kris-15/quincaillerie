@@ -1,5 +1,6 @@
 <?php
-    require 'Model.php';
+    require_once 'Model.php';
+    require 'Manager.php';
     class Admin extends Model{
         public string $name;
         public string $email;
@@ -33,8 +34,6 @@
                 return false;
             }
             if(password_verify($this->password, $admin->password)){
-                $this->name = $admin->nom;
-                $this->email = $admin->email;
                 return true;
             }
             return false;
@@ -67,9 +66,32 @@
          * Permet de récupérer tous les informations d'un admin à partir de son username
          */
         private function find_admin_by_username(){
-            return $this->prepare_sql(
+            $data = $this->prepare_sql(
                 "SELECT * FROM admins WHERE username=?",
                 [$this->username], fetchOne:true, fetchMode:PDO::FETCH_OBJ
             );
+            if($data){
+                $this->name=$data->nom;
+                $this->email=$data->email;
+                $this->id=$data->id;
+            }
+            return $data;
+        }
+
+        /**
+         * Cette méthode permet d'enregistrer un nouveau gestionnaire par un admin
+         * @param string $lastName Le nom du gestionnaire
+         * @param string $firstName Le prenom du gestionnaire
+         * @param string $email L'adresse email du gestionnaire
+         * @param string $password Le mot de passe du gestionnaire
+         * @return bool true||false
+         */
+        public function create_manager($lastName, $firstName, $email, $password){
+            if(!$this->find_admin_by_username()){
+                return false;
+            }
+            $manager = new Manager($lastName, $firstName, $email, $password, $this->id);
+            $created = $manager->store_manager();
+            return $created;
         }
     }
