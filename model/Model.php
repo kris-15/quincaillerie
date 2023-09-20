@@ -1,7 +1,7 @@
 <?php
 class Model{
     protected $pdo;
-    public function get_pdo(){
+    protected function get_pdo(){
         $this->pdo = new PDO("mysql:host=localhost;dbname=quincaillerie;", 'root', '', 
             [PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION, PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC]
         );
@@ -17,7 +17,7 @@ class Model{
      * @param bool $fetchOne si on va chercher qu'un seul élément
      * @return bool||array $donnees
      */
-    public function prepare_sql(
+    protected function prepare_sql(
         $sql, Array $valeurs, $fetch = false, $fetchColumn = false, 
         $fetchOne = false, $fetchMode = PDO::FETCH_ASSOC, 
     )
