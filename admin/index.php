@@ -3,5 +3,10 @@ session_start();
 if($_SESSION['admin']==null AND $_SESSION['manager']==null AND $_SESSION['dealer']==null){
     header("Location: ../login.php");
 }
-$content = "Hello ". $_SESSION['admin'];
+ob_start();
+if(isset($_GET['actor']) AND $_GET["actor"] == "manager"){
+    require 'controller/manager.php';
+}
+require 'view/index_view.php';
+$content = ob_get_clean();
 require '../partials/app.php';
