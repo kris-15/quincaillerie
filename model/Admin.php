@@ -65,7 +65,7 @@
         /**
          * Permet de récupérer tous les informations d'un admin à partir de son username
          */
-        private function find_admin_by_username(){
+        public function find_admin_by_username(){
             $data = $this->prepare_sql(
                 "SELECT * FROM admins WHERE username=?",
                 [$this->username], fetchOne:true, fetchMode:PDO::FETCH_OBJ
@@ -93,5 +93,41 @@
             $manager = new Manager($lastName, $firstName, $email, $password, $this->id);
             $created = $manager->store_manager();
             return $created;
+        }
+
+        public function get_managers(){
+            $manager = new Manager("","","","",$this->id);
+            return $manager->all_manager();
+        }
+        /**
+         * Permet à l'administrateur de récupérer les infos d'un manager
+         * @param int $id L'identifiant du manager
+         * @return array
+         */
+        public function get_manager($idManager){
+            $manager = new Manager("","","","",$this->id);
+            return $manager->find_manager_by_id($idManager);
+        }
+
+        /**
+         * Permet de modifier les informations d'un manager
+         * @param int $idManager L'id du manager
+         * @param string $lastName Le nom du manager
+         * @param string $firstName Le prenom du manager
+         * @param string $email L'email du manager
+         */
+        public function update_manager($idManager,$lastName,$firstName,$email){
+            $manager = new Manager($lastName,$firstName,$email,"",$this->id);
+            $manager->find_manager_by_id($idManager);
+            return $manager->update_manager();
+        }
+
+        /**
+         * Permet à l'admin de supprimer un gestionnaire
+         * @param int $idManager L'id du manager à supprimer
+         */
+        public function delete_manager($idManager){
+            $manager = new Manager("","","","", $this->id);
+            return $manager->delete($idManager); 
         }
     }

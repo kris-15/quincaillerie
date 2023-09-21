@@ -11,8 +11,8 @@
     } 
 ?>
 <form action="" method="post">
-    <?= $form->input_field('text', 'lastName', "Le nom du gestionnaire")?>
-    <?= $form->input_field('text', 'firstName', "Le prenom du gestionnaire")?>
-    <?= $form->input_field('text', 'email', "L'adresse email du gestionnaire")?>
-    <button type="submit" class="btn btn-primary w-100 my-2" name="manager"><?= isset($update) ?'Modifier':'Ajouter'?></button>
+    <?= $form->input_field('text', 'lastName', "Le nom du gestionnaire", valueDefined: $managerToUpdate->nom ??'')?>
+    <?= $form->input_field('text', 'firstName', "Le prenom du gestionnaire", valueDefined: $managerToUpdate->prenom ??'')?>
+    <?= $form->input_field('text', 'email', "L'adresse email du gestionnaire", valueDefined: $managerToUpdate->email ??'')?>
+    <button type="submit" class="btn btn-primary w-100 my-2" name="<?= isset($update) ?'modifier_manager':'manager'?>"><?= isset($update) ?'Modifier':'Ajouter'?></button>
 </form>

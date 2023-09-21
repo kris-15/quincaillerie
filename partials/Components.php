@@ -36,9 +36,9 @@ HTML;
          * @param string $icon L'icone du message
          * @return string
          */
-        public function alert($message, $icon){
+        public function alert($message, $icon, $type="success"){
             return <<<HTML
-                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                <div class="alert alert-$type alert-dismissible fade show" role="alert">
                     <i class="bi bi-$icon me-1"></i>
                     $message
                     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
