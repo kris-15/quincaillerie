@@ -68,16 +68,16 @@ HTML;
          * @param string $label Le label visible dans le champ.
          * @return string $heredoc La structure html formatée
          */
-        public static function textarea_field($name, $label, $required = true){
+        public static function textarea_field($name, $label, $required = true, $valueDefined=""){
             $requiredText = "required";
             if(!$required){
                 $requiredText = "";
             }
-            $value = $_POST[''.$name]??'';
+            $value = $_POST[''.$name]??$valueDefined;
             return <<<HTML
-                <div class="form-floating my-2">
-                    <textarea class="form-control" id="$name"  name="$name" $requiredText>$value</textarea>                
-                    <label for="$name">$label</label>
+                <div class="col-12 my-2">
+                    <label for="$name" class="form-label">$label</label>
+                    <textarea class="form-control" id="$name"  name="$name" $requiredText>$value</textarea>     
                 </div>
 HTML;
         }
