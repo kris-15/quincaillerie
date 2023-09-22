@@ -25,7 +25,7 @@
         $managerToUpdate = $admin->get_manager($idManager);
         $update = true;
         
-    }elseif($_GET['delete']){
+    }elseif(isset($_GET['delete'])){
         $idManager = (int) $_GET['delete'];
         $deleted = $admin->delete_manager($idManager);
         if($deleted)$success = "Gestionnaire supprimé avec succès"; 

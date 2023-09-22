@@ -1,6 +1,7 @@
 <?php
     require_once 'Model.php';
     require 'Manager.php';
+    require 'Dealer.php';
     class Admin extends Model{
         public string $name;
         public string $email;
@@ -77,6 +78,7 @@
             }
             return $data;
         }
+        /*************************************      PARTIE GESTIONNNAIRE      ************************************/
 
         /**
          * Cette méthode permet d'enregistrer un nouveau gestionnaire par un admin
@@ -129,5 +131,61 @@
         public function delete_manager($idManager){
             $manager = new Manager("","","","", $this->id);
             return $manager->delete($idManager); 
+        }
+        /***********************************      FIN PARTIE GESTIONNNAIRE      *********************************/
+
+        /***************************************      PARTIE VENDEUR      ***************************************/
+
+        /**
+         * Cette méthode permet d'enregistrer un nouveau vendeur par un admin
+         * @param string $matricule Le matricule du vendeur
+         * @param string $firstName Le prenom du vendeur
+         * @param string $phone Le numéro de téléphone du vendeur
+         * @param string $password Le mot de passe du vendeur
+         * @return bool true||false
+         */
+        public function create_dealer($matricule, $firstName, $phone, $password){
+            if(!$this->find_admin_by_username()){
+                return false;
+            }
+            $dealer = new Dealer($matricule, $firstName, $phone, $password, $this->id);
+            $created = $dealer->store_dealer();
+            return $created;
+        }
+
+        public function get_dealers(){
+            $dealer = new Dealer("","","","",$this->id);
+            return $dealer->all_dealer();
+        }
+        /**
+         * Permet à l'administrateur de récupérer les infos d'un dealer
+         * @param int $id L'identifiant du dealer
+         * @return array
+         */
+        public function get_dealer($idDealer){
+            $dealer = new Dealer("","","","",$this->id);
+            return $dealer->find_dealer_by_id($idDealer);
+        }
+
+        /**
+         * Permet de modifier les informations d'un dealer
+         * @param int $iddealer L'id du dealer
+         * @param string $matricule Le nom du dealer
+         * @param string $firstName Le prenom du dealer
+         * @param string $phone L'phone du dealer
+         */
+        public function update_dealer($idDealer,$firstName,$phone){
+            $dealer = new Dealer("",$firstName,$phone,"",$this->id);
+            $dealer->find_dealer_by_id($idDealer);
+            return $dealer->update_dealer();
+        }
+
+        /**
+         * Permet à l'admin de supprimer un gestionnaire
+         * @param int $idDealer L'id du dealer à supprimer
+         */
+        public function delete_dealer($idDealer){
+            $dealer = new Dealer("","","","", $this->id);
+            return $dealer->delete($idDealer); 
         }
     }

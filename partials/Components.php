@@ -10,8 +10,8 @@
                         <li class="dropdown-header text-start">
                             <h6>Action</h6>
                         </li>
-                        <li><a class="dropdown-item" href="{$links[0]}">Manager</a></li>
-                        <li><a class="dropdown-item" href="{$links[1]}">Nouveau</a></li>
+                        <li><a class="dropdown-item" href="{$links[0]}">Gérer</a></li>
+                        <li><a class="dropdown-item" href="{$links[1]}">Ajouter</a></li>
                         </ul>
                     </div>
                     <div class="card-body">
