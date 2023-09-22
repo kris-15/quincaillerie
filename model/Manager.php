@@ -1,12 +1,13 @@
 <?php 
     require_once 'Model.php';
+    require_once 'Category.php';
     class Manager extends Model{
         public int $id;
         public string $lastName;
         public string $firstName;
         public string $email;
         public string $password;
-        public int $adminId;
+        public $adminId;
 
         public function __construct($lastName, $firstName, $email, $password, $adminId)
         {
@@ -44,7 +45,7 @@
             if($data)$this->id = $data->id;
             return $data;
         }
-
+        
         /**
          * Permet de modifier les informations d'un gestionnaire
          */
@@ -63,5 +64,75 @@
                 $this->prepare_sql("DELETE FROM gestionnaires WHERE id=? AND admin_id=?",[$this->id, $this->adminId])
                 :false
             ;
+        }
+        public function login(){
+            $manager = $this->find_manager_by_email($this->email);
+            if(!$manager){
+                return false;
+            }
+            if(password_verify($this->password, $manager->mot_de_passe)){
+                return true;
+            }
+            return false;
+        }
+        public function find_manager_by_email($email){
+            $data = $this->prepare_sql("SELECT * FROM gestionnaires WHERE email=?",
+                [$this->email], fetchOne:true, fetchMode:PDO::FETCH_OBJ
+            );
+            if($data)$this->id = $data->id;$this->lastName=$data->nom;$this->firstName=$data->prenom;
+            return $data;
+        }
+
+        /*************************************      PARTIE CATEGORIE      ***************************************/
+
+        /**
+         * Cette méthode permet d'enregistrer un nouveau vendeur par un admin
+         * @param string $type Le type du vendeur
+         * @param string $description Le prenom du vendeur
+         * @return bool true||false
+         */
+        public function create_category($type, $description){
+            if(!$this->find_manager_by_email($this->email)){
+                return false;
+            }
+            $category = new Category($type, $description, $this->id);
+            $created = $category->store_category();
+            return $created;
+        }
+
+        public function get_categories(){
+            $category = new Category("","",$this->id);
+            return $category->all_categories();
+        }
+        /**
+         * Permet à l'administrateur de récupérer les infos d'un category
+         * @param int $id L'identifiant du category
+         * @return array
+         */
+        public function get_category($idCategory){
+            $category = new Category("","",$this->id);
+            return $category->find_category_by_id($idCategory);
+        }
+
+        /**
+         * Permet de modifier les informations d'un category
+         * @param int $idcategory L'id du category
+         * @param string $type Le nom du category
+         * @param string $description Le prenom du category
+         * @param string $type L'type du category
+         */
+        public function update_category($idCategory,$type,$description){
+            $category = new Category($type,$description,$this->id);
+            $category->find_category_by_id($idCategory);
+            return $category->update_category();
+        }
+
+        /**
+         * Permet à l'admin de supprimer un gestionnaire
+         * @param int $idCategory L'id du category à supprimer
+         */
+        public function delete_category($idCategory){
+            $category = new Category("","", $this->id);
+            return $category->delete($idCategory); 
         }
     }
