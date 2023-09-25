@@ -1,12 +1,5 @@
 <?php
-    require '../model/Manager.php';
-    require_once '../partials/Components.php';
-    $manager = new Manager("", "", $_SESSION['manager'], '', '');
-    $components = new Components();
-    $manager->find_manager_by_email($manager->email);
-    $update;
-    $inc = 1;
-    $categories = $manager->get_categories();
+    
     if(isset($_POST['category'])){
         extract($_POST);
         $created = $manager->create_category($type, $description);
