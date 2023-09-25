@@ -1,6 +1,7 @@
 <?php 
     require_once 'Model.php';
     require_once 'Category.php';
+    require_once 'Product.php';
     class Manager extends Model{
         public int $id;
         public string $lastName;
@@ -78,8 +79,8 @@
         public function find_manager_by_email($email){
             $data = $this->prepare_sql("SELECT * FROM gestionnaires WHERE email=?",
                 [$this->email], fetchOne:true, fetchMode:PDO::FETCH_OBJ
-            );
-            if($data)$this->id = $data->id;$this->lastName=$data->nom;$this->firstName=$data->prenom;
+            ); 
+            if($data){$this->id = $data->id;$this->lastName=$data->nom;$this->firstName=$data->prenom;}
             return $data;
         }
 
@@ -134,5 +135,57 @@
         public function delete_category($idCategory){
             $category = new Category("","", $this->id);
             return $category->delete($idCategory); 
+        }
+        /*************************************      PARTIE PRODUIT      ***************************************/
+
+        /**
+         * Cette méthode permet d'enregistrer un nouveau vendeur par un admin
+         * @param string $type Le type du vendeur
+         * @param string $description Le prenom du vendeur
+         * @return bool true||false
+         */
+        public function add_product($libelle, $price, $code, $idCategory, $quantity){
+            if(!$this->find_manager_by_email($this->email)){
+                return false;
+            }
+            $product = new Product($libelle, $price, $code, $quantity, $idCategory, $this->id);
+            $created = $product->store_product();
+            return $created;
+        }
+
+        public function get_products(){
+            $product = new Product("","","","","",$this->id);
+            return $product->all_products();
+        }
+        /**
+         * Permet à l'administrateur de récupérer les infos d'un product
+         * @param int $id L'identifiant du product
+         * @return array
+         */
+        public function get_product($idProduct){
+            $product = new Product("","","","","",$this->id);
+            return $product->find_product_by_id($idProduct);
+        }
+
+        /**
+         * Permet de modifier les informations d'un product
+         * @param int $idProduct L'id du product
+         * @param string $type Le nom du product
+         * @param string $description Le prenom du product
+         * @param string $type L'type du product
+         */
+        public function update_product($idProduct,$libelle, $price, $code, $idCategory, $quantity){
+            $product = new Product($libelle,$price,$code,$quantity,$idCategory,$this->id);
+            $product->find_product_by_id($idProduct);
+            return $product->update_product();
+        }
+
+        /**
+         * Permet à l'admin de supprimer un gestionnaire
+         * @param int $idProduct L'id du product à supprimer
+         */
+        public function delete_product($idProduct){
+            $product = new Product("","","","","", $this->id);
+            return $product->delete($idProduct); 
         }
     }

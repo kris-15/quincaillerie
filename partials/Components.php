@@ -1,6 +1,7 @@
 <?php
     class Components{
-        public function bloc_dashboard($title, $sub, $icon, array $links){
+        public function bloc_dashboard($title, $sub, $icon, array $links, $count =145){
+            $message = $count >1 ?  "enregistrés":"enregistré";
             return <<<HTML
             <div class="col-xxl-4 col-md-6">
                 <div class="card info-card sales-card">
@@ -21,8 +22,8 @@
                                 <i class="bi $icon"></i>
                             </div>
                             <div class="ps-3">
-                                <h6>145</h6>
-                                <span class="text-success small pt-1 fw-bold">12%</span> <span class="text-muted small pt-2 ps-1">increase</span>
+                                <h6>$count</h6>
+                                <span class="text-success small pt-1 fw-bold">$message</span> <span class="text-muted small pt-2 ps-1">dans le stock</span>
                             </div>
                         </div>
                     </div>

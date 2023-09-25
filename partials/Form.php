@@ -38,10 +38,11 @@ HTML;
          * @param string $label Le label visible dans le champ.
          * @return string $heredoc La structure html formatée
          */
-        public function select_field($name, array $options, $label){
-            $selected = $_POST[''.$name]??"";
+        public function select_field($name, array $options, $label, $valueDefined=""){
+            $selected = $_POST[''.$name]??$valueDefined;
         $heredoc = <<<HTML
             <div class="col-12 my-1">
+                <label for="$name">$label</label>
                 <select name="$name" id="$name" class="form-select"  required>
                     <option value=""></option>
 HTML;
@@ -55,7 +56,7 @@ HTML;
                     }
                     $heredoc .= <<<HTML
                 </select>
-                <label for="$name">$label</label>
+                
             </div>
 HTML;
         return $heredoc;
