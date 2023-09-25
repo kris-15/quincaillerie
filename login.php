@@ -18,6 +18,13 @@
                     header("Location: index.php");
                 }
             } 
+            if($role === "dealer"){
+                $manager = new Dealer($login, "", "", $password, 0);
+                if($manager->login()){
+                    $_SESSION['dealer'] = $manager->matricule;
+                    header("Location: index.php");
+                }
+            } 
         }
         
         $error = "informations incorrectes";

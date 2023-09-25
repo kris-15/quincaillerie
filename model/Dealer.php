@@ -64,4 +64,23 @@
                 :false
             ;
         }
+        public function find_dealer_by_matricule(){
+            $data = $this->prepare_sql("SELECT * FROM vendeurs WHERE matricule=?",
+                [$this->matricule], fetchOne:true, fetchMode:PDO::FETCH_OBJ
+            ); 
+            if($data){$this->id = $data->id;$this->firstName=$data->prenom;$this->adminId=$data->id_admin;}
+            return $data;
+        }
+
+        public function login(){
+            $dealer = $this->find_dealer_by_matricule($this->matricule);
+            if(!$dealer){
+                return false;
+            }
+            if(password_verify($this->password, $dealer->mot_de_passe)){
+                return true;
+            }
+            return false;
+        }
+        
     }
