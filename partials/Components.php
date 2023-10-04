@@ -16,13 +16,13 @@
                         </ul>
                     </div>
                     <div class="card-body">
-                        <h5 class="card-title">$title <span>| $sub</span></h5>
+                        <h5 class="card-title text-success">$title <span>| $sub</span></h5>
                         <div class="d-flex align-items-center">
                             <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-                                <i class="bi $icon"></i>
+                                <i class="bi $icon text-success"></i>
                             </div>
                             <div class="ps-3">
-                                <h6>$count</h6>
+                                <h6 class="text-success">$count</h6>
                                 <span class="text-success small pt-1 fw-bold">$message</span> <span class="text-muted small pt-2 ps-1">dans le stock</span>
                             </div>
                         </div>
