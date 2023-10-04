@@ -92,4 +92,19 @@
                 :false
             ;
         }
+        public function all_products_for_entreprise($adminId){
+            return $this->prepare_sql(
+                "SELECT *, produits.id as produit_id, categories.id as categorie_id, stocks.id as id_stock 
+                FROM produits INNER JOIN stocks ON produits.id = stocks.id_produit 
+                INNER JOIN categories ON produits.id_categorie = categories.id
+                INNER JOIN gestionnaires ON gestionnaires.id = produits.id_gestionnaire
+                INNER JOIN admins ON  admins.id = gestionnaires.admin_id WHERE admins.id=? 
+                ",
+                [$adminId], fetch:true, fetchMode:PDO::FETCH_OBJ
+            );
+        }
+
+        public function get_product($id){
+            return $this->prepare_sql("SELECT * FROM produits WHERE id=?",[$id],fetchOne:true,fetchMode:PDO::FETCH_OBJ);
+        }
     }

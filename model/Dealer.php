@@ -1,5 +1,6 @@
 <?php 
     require_once 'Model.php';
+    require_once 'Product.php';
     class Dealer extends Model{
         public int $id;
         public string $matricule;
@@ -82,5 +83,12 @@
             }
             return false;
         }
-        
+        public function get_products(){
+            $product = new Product("","","","","",$this->id);
+            return $product->all_products_for_entreprise($this->adminId);
+        }
+        public function get_product($idProduct){
+            $product = new Product("","","","","",$this->id);
+            return $product->get_product($idProduct);
+        }
     }
