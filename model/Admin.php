@@ -188,4 +188,10 @@
             $dealer = new Dealer("","","","", $this->id);
             return $dealer->delete($idDealer); 
         }
+
+        //Partie Produit
+        public function get_products(){
+            $product = new Product("","","","","",0);
+            return $product->all_products_for_entreprise($this->id);
+        }
     }
