@@ -1,12 +1,6 @@
 <?php
-    require '../model/Admin.php';
-    require_once '../partials/Components.php';
-    $admin = new Admin("", "", $_SESSION['admin'], '');
-    $components = new Components();
-    $admin->find_admin_by_username();
-    $update;
-    $inc = 1;
-    $managers = $admin->get_managers();
+    
+    
     if(isset($_POST['manager'])){
         extract($_POST);
         $created = $admin->create_manager($lastName, $firstName, $email, "0000");

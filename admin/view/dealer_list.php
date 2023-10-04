@@ -1,3 +1,6 @@
+<div class="d-flex justify-content-end">
+    <button onclick="window.print()" class="btn btn-success mb-2" type="submit">Imprimer</button>
+</div>
 <section class="section dashboard">
     <div class="col-12">
         <div class="card recent-sales overflow-auto">
@@ -13,7 +16,7 @@
             </div>
             
             <div class="card-body">
-                <h5 class="card-title">Gestionnaires <span>| Liste</span></h5>
+                <h5 class="card-title text-success">Gestionnaires <span>| Liste</span></h5>
                 <?= isset($success) ?  $components->alert($success, 'check-circle') : ""?>
                 <?= isset($error) ?  $components->alert($error, 'exclamation-triangle', 'danger m-2') : ""?>
                 <table class="table table-borderless datatable">
@@ -34,7 +37,7 @@
                                 <td class="text-primary"><?= $dealer->prenom ?></td>
                                 <td class="text-primary"><?= $dealer->telephone ?></td>
                                 <td>
-                                    <a href="?actor=dealer&update=<?= $dealer->id?>" class="btn btn-sm btn-outline-primary" title="Modifier"><i class="bi bi-pencil"></i></a>
+                                    <a href="?actor=dealer&update=<?= $dealer->id?>" class="btn btn-sm btn-outline-success" title="Modifier"><i class="bi bi-pencil"></i></a>
                                     <a href="?actor=dealer&delete=<?= $dealer->id?>" class="btn btn-sm btn-outline-danger" title="Supprimer"><i class="bi bi-trash"></i></a>
                                     
                                 </td>

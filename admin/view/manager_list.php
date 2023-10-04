@@ -9,13 +9,12 @@
                         <h6>Action</h6>
                     </li>
 
-                    <li><a class="dropdown-item" href="#">Manger</a></li>
-                    <li><a class="dropdown-item" href="#">Ajouter</a></li>
+                    <li><a class="dropdown-item" href="?actor=manager">Ajouter</a></li>
                 </ul>
             </div>
             
             <div class="card-body">
-                <h5 class="card-title">Gestionnaires <span>| Liste</span></h5>
+                <h5 class="card-title text-success">Gestionnaires <span>| Liste</span></h5>
                 <?= isset($success) ?  $components->alert($success, 'check-circle') : ""?>
                 <?= isset($error) ?  $components->alert($error, 'exclamation-triangle', 'danger m-2') : ""?>
                 <table class="table table-borderless datatable">
@@ -36,7 +35,7 @@
                                 <td class="text-primary"><?= $manager->prenom ?></td>
                                 <td class="text-primary"><?= $manager->email ?></td>
                                 <td>
-                                    <a href="?actor=manager&update=<?= $manager->id?>" class="btn btn-sm btn-outline-primary" title="Modifier"><i class="bi bi-pencil"></i></a>
+                                    <a href="?actor=manager&update=<?= $manager->id?>" class="btn btn-sm btn-outline-success" title="Modifier"><i class="bi bi-pencil"></i></a>
                                     <a href="?actor=manager&delete=<?= $manager->id?>" class="btn btn-sm btn-outline-danger" title="Supprimer"><i class="bi bi-trash"></i></a>
                                     
                                 </td>

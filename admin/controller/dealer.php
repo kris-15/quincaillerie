@@ -1,12 +1,6 @@
 <?php
-    require '../model/Admin.php';
-    require_once '../partials/Components.php';
-    $admin = new Admin("", "", $_SESSION['admin'], '');
-    $components = new Components();
-    $admin->find_admin_by_username();
+    
     $update;
-    $inc = 1;
-    $dealers = $admin->get_dealers();
     if(isset($_POST['dealer'])){
         extract($_POST);
         $matricule = strtoupper(substr(uniqid(), 7));
