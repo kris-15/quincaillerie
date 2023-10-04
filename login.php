@@ -81,7 +81,7 @@
     </fieldset>
     </div>
     <div class="col-12">
-        <button class="btn btn-primary w-100" type="submit" name="connect">Login</button>
+        <button class="btn btn-success w-100" type="submit" name="connect">Login</button>
     </div>
     <div class="col-12">
         <p class="small mb-0 text-center"><a href="register.php">Creez un compte</a></p>

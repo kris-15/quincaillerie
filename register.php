@@ -61,7 +61,7 @@
         </div>
     </div>
     <div class="col-12">
-        <button class="btn btn-primary w-100" type="submit" name="register">Creez le compte</button>
+        <button class="btn btn-success w-100" type="submit" name="register">Creez le compte</button>
     </div>
     <div class="col-12">
         <p class="small mb-0">Avez-vous déjà un compte? <a href="login.php">Log in</a></p>
